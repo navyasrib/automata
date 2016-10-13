@@ -2,14 +2,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Transition {
-    private Map<String, Map<String, String>> states = new HashMap();
+    private Map<State, Map<String, State>> states = new HashMap();
 
-    public void create(String currentState, String alphabet, String nextState) {
+    public void create(State currentState, String alphabet, State nextState) {
         states.putIfAbsent(currentState, new HashMap<>());
         states.get(currentState).put(alphabet, nextState);
     }
 
-    public Map<String, Map<String, String>> getAllStates() {
+    public Map<State, Map<String, State>> getAllStates() {
         return states;
     }
 }
