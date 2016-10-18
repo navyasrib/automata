@@ -5,13 +5,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DeltaTest {
-    private Transition transitions;
+    private Transisions transitions;
     private State q1;
     private State q2;
 
     @Before
     public void setUp() throws Exception {
-        transitions = new Transition();
+        transitions = new Transisions();
         q1 = new State("q1");
         q2 = new State("q2");
         transitions.create(q1,"0",q2);

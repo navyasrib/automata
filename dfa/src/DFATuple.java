@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class DFATuple {
     private final State initialState;
     private final AlphabetSet alphabetSet;
-    private final Transition statesSet;
+    private final States statesSet;
     private final Delta delta;
     private final ArrayList<State> finalStates;
 
-    DFATuple(State initialState, AlphabetSet alphabetSet, Transition statesSet, Delta delta, ArrayList<State> finalStates) {
+    DFATuple(State initialState, AlphabetSet alphabetSet, States statesSet, Delta delta, ArrayList<State> finalStates) {
         this.initialState = initialState;
         this.alphabetSet = alphabetSet;
         this.statesSet = statesSet;
@@ -31,5 +31,16 @@ public class DFATuple {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "DFATuple{" +
+                "initialState=" + initialState +
+                ", alphabetSet=" + alphabetSet +
+                ", statesSet=" + statesSet +
+                ", delta=" + delta +
+                ", finalStates=" + finalStates +
+                '}';
     }
 }
