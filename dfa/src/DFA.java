@@ -10,7 +10,7 @@ public class DFA {
         Delta delta = new Delta(tuple.getDelta());
         DFATuple dfaTuple = new DFATuple(tuple.getStart_state(), tuple.getAlphabets(), tuple.getStates(), delta, tuple.getFinal_states());
         Boolean passCases = isValid(dfaTuple, dfaData.getPass_cases());
-        Boolean failCases = !isValid(dfaTuple, dfaData.getFail_cases());
+        Boolean failCases = isInValid(dfaTuple, dfaData.getFail_cases());
         if(passCases && failCases)
             System.out.println("Your DFA is working fine :)");
         else
@@ -18,11 +18,21 @@ public class DFA {
 
     }
 
-    private static Boolean isValid(DFATuple dfaTuple, String[] cases) {
-        Boolean isValid = false;
-        for (String input : cases) {
-            isValid = dfaTuple.isAccept(input);
+    private static Boolean isInValid(DFATuple dfaTuple, String[] failCases) {
+        int inValidCaseCount = 0;
+        for (String input : failCases) {
+            if(!dfaTuple.isAccept(input))
+                inValidCaseCount += 1;
         }
-        return isValid;
+        return inValidCaseCount == failCases.length;
+    }
+
+    private static Boolean isValid(DFATuple dfaTuple, String[] passCases) {
+        int validCaseCount = 0;
+        for (String input : passCases) {
+            if(dfaTuple.isAccept(input))
+                validCaseCount += 1;
+        }
+        return validCaseCount == passCases.length;
     }
 }
