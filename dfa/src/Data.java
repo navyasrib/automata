@@ -1,5 +1,5 @@
-import java.util.List;
+import java.util.ArrayList;
 
-public class Data {
-    private List<MachineData> machines;
+public class Data extends ArrayList<MachineData>{
+
 }

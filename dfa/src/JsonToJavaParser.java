@@ -1,18 +1,27 @@
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class JsonToJavaParser {
 
-    public MachineData parse(String fileName) {
-        String json = "{\"name\":\"odd number of zeroes\",\"type\":\"dfa\",\"tuple\":{\"states\":[\"q1\",\"q2\"],\"alphabets\":[\"1\",\"0\"],\"delta\":{\"q1\":{\"0\":\"q2\",\"1\":\"q1\"},\"q2\":{\"0\":\"q1\",\"1\":\"q2\"}},\"start_state\":\"q1\",\"final_states\":[\"q2\"]},\"pass_cases\":[\"0\",\"000\",\"00000\",\"10\",\"101010\",\"010101\"],\"fail_cases\":[\"00\",\"0000\",\"1001\",\"1010\",\"001100\"]}";
+    public ArrayList<MachineData> parse(String fileName) throws FileNotFoundException {
+        String content = new Scanner(new File(fileName)).useDelimiter("\\Z").next();
+        String jsonData = content.replace("\\", "").replace("start-state","start_state").replace("final-states","final_states").replace("pass-cases","pass_cases").replace("fail-cases","fail_cases");
+        String dataToParse = jsonData.substring(1,jsonData.length()-1);
         ObjectMapper objectMapper = new ObjectMapper();
-        MachineData values = null;
+        ArrayList<MachineData> values = new ArrayList<>();
         try {
-            values = objectMapper.readValue(json, MachineData.class);
+            values = objectMapper.readValue(dataToParse, new TypeReference<List<MachineData>>(){});
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(values.get(0).getTuple().getClass());
         return values;
     }
 }

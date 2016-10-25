@@ -1,8 +1,17 @@
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 public class DFA {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         JsonToJavaParser jsonToJavaParser = new JsonToJavaParser();
-        MachineData dfaData = jsonToJavaParser.parse("data.json");
-        check(dfaData);
+        ArrayList<MachineData> dfaData = jsonToJavaParser.parse("/Users/basava/work_space/session2/automata/dfa/src/data.json");
+        validateAllMachines(dfaData);
+    }
+
+    private static void validateAllMachines(ArrayList<MachineData> dfaData) {
+        for (MachineData data : dfaData) {
+            check(data);
+        }
     }
 
     private static void check(MachineData dfaData) {
